@@ -1,0 +1,60 @@
+th {
+    text-align: center;
+    font-size: 12px;
+}
+td {
+    text-align: center;
+    font-size: 11px;
+    font-family: FontAwesome;
+}
+table.dataTable thead th, table.dataTable thead td {
+    padding: 1px 1px;
+    border-bottom: 1px solid #111;
+}
+
+/* Ensure that the demo table scrolls */
+/* th, td { white-space: nowrap; } */
+div.dataTables_wrapper {
+    margin: 0 auto;
+}
+
+div.container {
+    width: 80%;
+}
+
+
+table{
+    margin: 0 auto;
+    width: 100%;
+    clear: both;
+    border-collapse: collapse;
+    table-layout: fixed;
+    word-wrap:break-word;
+}
+
+
+
+/***
+#yrow1 {
+    height: 100px;
+}
+#yrow2 {
+    height: 700px;
+}
+
+table.dataTable th, table.dataTable td {
+    font-size: 12px;
+}
+table.dataTable tbody tr {
+    height: 20px;
+}
+table.dataTable tbody td {
+    padding: 2px;
+}
+.maincei {
+    border: 7px solid green;
+}
+***/
+
+
+

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>필라테스</title>
+	<!-- JQuery, JQueryUI -->
+	<link rel="stylesheet" href="static/jquery/jquery-ui.css">
+	<script src="static/jquery/jquery-1.12.4.min.js"></script>
+	<script src="static/jquery/jquery-ui.min.js"></script>
+	<!-- Highchart -->
+	<script type="text/javascript"  src="static/highcharts/highcharts.js"></script>
+	<script type="text/javascript"  src="static/highcharts/exporting.js"></script>
+	<!-- Datatables -->
+    <link rel="stylesheet" type="text/css" href="static/datatables/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="static/datatables/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="static/datatables/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="static/datatables/dataTables.fixedColumns.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="static/datatables/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="static/datatables/buttons.flash.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="static/datatables/jszip.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="static/datatables/pdfmake.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="static/datatables/vfs_fonts.js"></script>
+	<script type="text/javascript" charset="utf8" src="static/datatables/buttons.html5.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="static/datatables/buttons.print.min.js"></script>
+
+	<!-- dtpicker, jClocksGMT
+	<script type="text/javascript"  src="static/jquery/jClocksGMT.js"></script>
+	<script type="text/javascript"  src="static/jquery/jquery.rotate.js"></script>
+	<script type="text/javascript"  src="static/jquery/jquery.simple-dtpicker.js"></script>
+	<script type="text/javascript"  src="static/jquery/jquery.blink.js"></script>
+	-->
+
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="static/bootstrap-3.3.7-dist/bootstrap.min.css">
+	<link rel="stylesheet" href="static/bootstrap-3.3.7-dist/bootstrap-theme.min.css">
+	<script src="static/bootstrap-3.3.7-dist//bootstrap.min.js"></script>
+    <!--
+    Bootstrap toggle
+    <link rel="stylesheet" href="static/bootstrap-3.3.7-dist/bootstrap-toggle.min.css">
+    <script src="static/bootstrap-3.3.7-dist/bootstrap-toggle.min.js"></script>
+    -->
+
+    <link type="text/css" rel="stylesheet" href="static/css/main_pila.css">  <!-- 내가 만든 css 파일 -->
+    <script type="text/javascript"  src="static/js/main_pila.js"></script>  <!-- 내가 만든 js 파일 -->
+
+
+</head>
+<body>
+    <nav class="'navbar navbar-inverse">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav active">
+                <li><a href="#">매장A</a></li>
+                <li><a href="#">매장B</a></li>
+                <li><a href="#">매장C</a></li>
+                <li class="active"><a href="#">전체</a></li>
+            </ul>
+
+            <form class="navbar-form navbar-left">
+                <input type="button"  class="btn btn-warning" id="btn_TopC1" value="필라테스 관리" >
+            </form>
+
+            <form class="navbar-form navbar-right">
+                <input type="button"  class="btn btn-primary" id="btn_cust" value="고객추가" data-toggle="modal" data-target="#yModalinputcust" style="width:250px" >
+                <input type="button"  class="btn btn-primary" id="btn_regi" value="구매추가" data-toggle="modal" data-target="#yModalinputregi" style="width:250px" >
+                <input type="button"  class="btn btn-success" id="btn_work" value="사용추가" data-toggle="modal" data-target="#yModalinputwork" style="width:250px" >
+                <input type="button"  class="btn btn-primary" id="btn_pres" value="예약추가" data-toggle="modal" data-target="#yModalinputpres" style="width:250px" >
+                <input type="button"  class="btn btn-info" id="btn_TopR2" value="0531T2359" >
+            </form>
+        </div>
+    </nav>
+
+	<div id="tabs">
+		<ul>
+			<li><a href="#fragment0"><span style="font-weight: bolder">예약관리</span></a></li>
+            <li><a href="#fragment1"><span style="font-weight: bolder">고객관리</span></a></li>
+            <li><a href="#fragment2"><span style="font-weight: bolder">직원관리</span></a></li>
+            <li><a href="#fragment3"><span style="font-weight: bolder">등록관리</span></a></li>
+            <li><a href="#fragment4"><span style="font-weight: bolder">사용관리</span></a></li>
+            <li><a href="#fragment5"><span style="font-weight: bolder">상품정보</span></a></li>
+
+            <li><a href="#fragment6"><span style="font-weight: bolder">수당정보</span></a></li>
+            <li><a href="#fragment7"><span style="font-weight: bolder">월급여</span></a></li>
+            <li><a href="#fragment8"><span style="font-weight: bolder">근무표</span></a></li>
+
+		</ul>
+        <div id="fragment0">
+            <div id="ydiv0"></div>
+        </div>
+		<div id="fragment1">
+            <div id="ydiv1"></div>
+        </div>
+        <div id="fragment2">
+            <div id="ydiv2"></div>
+        </div>
+        <div id="fragment3">
+            <div class="container-fluid">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label class="col-form-label">월 선택</label>
+                        <input type="text" id="qry_filter31" value="" placeholder="Filter할 문구(2019-05)" style="width:400px;">
+                        <input class = "btn btn-primary" type="button" id="btn_qry31" value="다른달 조회">
+                    </div>
+                </form>
+            </div>
+            <div id="ydiv3"></div>
+        </div>
+        <div id="fragment4">
+            <div class="container-fluid">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label class="col-form-label">월 선택</label>
+                        <input type="text" id="qry_filter41" value="" placeholder="Filter할 문구(2019-05)" style="width:400px;">
+                        <input class = "btn btn-primary" type="button" id="btn_qry41" value="다른달 조회">
+                    </div>
+                </form>
+            </div>
+            <div id="ydiv4"></div>
+        </div>
+
+        <div id="fragment5">
+            <div id="ydiv5"></div>
+        </div>
+        <div id="fragment6">
+            <div id="ydiv6"></div>
+        </div>
+        <div id="fragment7">
+            <div id="ydiv7"></div>
+        </div>
+
+        <div id="fragment8">
+            <div class="container-fluid">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label class="col-form-label">월 선택</label>
+                        <input type="text" id="qry_filter81" value="" placeholder="Filter(2019-05)" style="width:200px;">
+                        <input class = "btn btn-primary" type="button" id="btn_qry81" value="다른달 조회">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label class="col-form-label">근무표 수정/등록</label>
+                        <input class = "btn btn-info" type="button" value="날짜 선택" >
+                        <input type="text" id="datepickersch82">
+                        <input type="text" id="qry_schname82" name="qry_schname82" value="" placeholder="이름">
+                        <select class="form-control" id="seljobtype82">
+                            <option>일:일근</option>
+                            <option>조:조근</option>
+                            <option>야:야근</option>
+                            <option>휴:휴일</option>
+                        </select>
+                        <input class = "btn btn-primary" type="button" id="btn_qry82" value="근무표에 수정등록">
+                    </div>
+                </form>
+            </div>
+
+            <div style="border-color: coral;">
+                <div style="text-align: center;color: blue;font-weight: bold;">근무표A</div>
+                <div id="ydiv81"></div>
+            </div>
+
+            <div style="border-color: coral;" id="yangdiv1">
+                <div style="text-align: center;color: blue;font-weight: bold;">근무표B</div>
+                <div id="ydiv82"></div>
+            </div>
+
+            <div style="border-color: coral;" id="yangdiv12">
+                <div style="text-align: center;color: blue;font-weight: bold;">근무표C</div>
+                <div id="ydiv83"></div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Modal-->
+    <div class="modal fade" id="yModalcust" role="dialog">
+        <div class="modal-dialog"  style="width:1400px;height:600px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">클릭한 내역</h4>
+                </div>
+            </div>
+            <div class="modal-body"  style="width:1400px;background-color:LightGoldenRodYellow;">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-12 control-label">내역</label>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div id="ydivmodal"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="background-color:Gold;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close(취소)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal yModalinputcust  -->
+    <div class="modal fade" id="yModalinputcust" role="dialog">
+        <div class="modal-dialog"  style="width:1200px;top:300px;">
+            <div class="modal-content" style="background-color:SeaGreen;" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">통제구역(사무실,장비실) 출입 등록</h4>
+                </div>
+            </div>
+            <div class="modal-body"  style="width:1200px;background-color:lightblue;">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">등록일자</label>
+                        <div class="col-sm-3"><input class="form-control" id="ydatecust" type="text" value=""></div>
+                        <label class="col-sm-1 control-label">성명</label>
+                        <div class="col-sm-3"><input class="form-control" id="ynamecust" type="text" value=""></div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">연락처</label>
+                        <div class="col-sm-3"><input class="form-control" id="yphonecust" type="text" value=""></div>
+                        <div class="col-sm-4">
+                            <label class="radio-inline"><input type="checkbox" name="yracencust" value="센터A">센터A</label>
+                            <label class="radio-inline"><input type="checkbox" name="yracencust" value="센터B">센터B</label>
+                            <label class="radio-inline"><input type="checkbox" name="yracencust" value="센터B">센터C</label>
+                        </div>
+                        <label class="col-sm-1 control-label">기타</label>
+                        <div class="col-sm-3"><input class="form-control" id="yetccust" type="text" value=""></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="background-color:DarkGray;">
+                <input class = "btn btn-primary" type="button" id="ysavecust" data-dismiss="modal" value="등록하기">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal yModalinputpeop  -->
+    <div class="modal fade" id="yModalinputpeop" role="dialog">
+        <div class="modal-dialog"  style="width:1200px;top:300px;">
+            <div class="modal-content" style="background-color:SeaGreen;" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">통제구역(사무실,장비실) 출입 등록</h4>
+                </div>
+            </div>
+            <div class="modal-body"  style="width:1200px;background-color:lightblue;">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">등록일자</label>
+                        <div class="col-sm-3"><input class="form-control" id="ydatepeop" type="text" value=""></div>
+                        <label class="col-sm-1 control-label">성명</label>
+                        <div class="col-sm-3"><input class="form-control" id="ynamepeop" type="text" value=""></div>
+                        <label class="col-sm-1 control-label">직급</label>
+                        <div class="col-sm-3"><input class="form-control" id="ygradepeop" type="text" value=""></div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">연락처</label>
+                        <div class="col-sm-3"><input class="form-control" id="yphonepeop" type="text" value=""></div>
+                        <div class="col-sm-4">
+                            <label class="radio-inline"><input type="checkbox" name="yracenpeop" value="센터A">센터A</label>
+                            <label class="radio-inline"><input type="checkbox" name="yracenpeop" value="센터B">센터B</label>
+                            <label class="radio-inline"><input type="checkbox" name="yracenpeop" value="센터B">센터C</label>
+                        </div>
+                        <label class="col-sm-1 control-label">기타</label>
+                        <div class="col-sm-3"><input class="form-control" id="yetcpeop" type="text" value=""></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="background-color:DarkGray;">
+                <input class = "btn btn-primary" type="button" id="ysavepeop" data-dismiss="modal" value="등록하기">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal yModalinputregi  -->
+    <div class="modal fade" id="yModalinputregi" role="dialog">
+        <div class="modal-dialog"  style="width:1200px;top:300px;">
+            <div class="modal-content" style="background-color:SeaGreen;" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">통제구역(사무실,장비실) 출입 등록</h4>
+                </div>
+            </div>
+            <div class="modal-body"  style="width:1200px;background-color:lightblue;">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">등록일자</label>
+                        <div class="col-sm-2"><input class="form-control" id="ydateregi" type="text" value=""></div>
+                        <label class="col-sm-1 control-label">상품종류</label>
+                        <div class="col-sm-2"><input class="form-control" id="ytyperegi" type="text" value=""></div>
+                        <label class="col-sm-1 control-label">상품횟수</label>
+                        <div class="col-sm-2"><input class="form-control" id="ycntregi" type="text" value=""></div>
+                        <label class="col-sm-1 control-label">고객이름</label>
+                        <div class="col-sm-2"><input class="form-control" id="ynameregi" type="text" value=""></div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">등록비</label>
+                        <div class="col-sm-2"><input class="form-control" id="ymoney1regi" type="text" value=""></div>
+                        <label class="col-sm-1 control-label">1회비용</label>
+                        <div class="col-sm-2"><input class="form-control" id="ymoney2regi" type="text" value=""></div>
+                        <div class="col-sm-3">
+                            <label class="radio-inline"><input type="checkbox" name="yracardregi" value="카드">카드</label>
+                            <label class="radio-inline"><input type="checkbox" name="yracardregi" value="현금">현금</label>
+                            <label class="radio-inline"><input type="checkbox" name="yracardregi" value="계좌">계좌</label>
+                        </div>
+                        <label class="col-sm-1 control-label">기타</label>
+                        <div class="col-sm-2"><input class="form-control" id="yetcregi" type="text" value=""></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="background-color:DarkGray;">
+                <input class = "btn btn-primary" type="button" id="ysaveregi" data-dismiss="modal" value="등록하기">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal yModalinputwork  -->
+    <div class="modal fade" id="yModalinputwork" role="dialog">
+        <div class="modal-dialog"  style="width:1200px;top:300px;">
+            <div class="modal-content" style="background-color:SeaGreen;" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">사용 등록</h4>
+                </div>
+            </div>
+            <div class="modal-body"  style="width:1200px;background-color:lightblue;">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">예약일자</label>
+                        <div class="col-sm-2"><input class="form-control" id="ydatepres" type="text" value=""></div>
+                        <label class="col-sm-1 control-label">요일</label>
+                        <div class="col-sm-2"><input class="form-control" id="yweekpres" type="text" value=""></div>
+                        <label class="col-sm-1 control-label">예약시간</label>
+                        <div class="col-sm-2"><input class="form-control" id="ytimepres" type="text" value=""></div>
+                        <label class="col-sm-1 control-label">고객이름</label>
+                        <div class="col-sm-2"><input class="form-control" id="yname1pres" type="text" value=""></div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">직원이름</label>
+                        <div class="col-sm-2"><input class="form-control" id="yname2pres" type="text" value=""></div>
+                        <label class="col-sm-1 control-label">예약시간</label>
+                        <div class="col-sm-2">
+                            <label class="radio-inline"><input type="checkbox" name="yrahourwork" value="1">1</label>
+                            <label class="radio-inline"><input type="checkbox" name="yrahourwork" value="2">2</label>
+                            <label class="radio-inline"><input type="checkbox" name="yrahourwork" value="3">3</label>
+                        </div>
+                        <label class="col-sm-1 control-label">예약메모</label>
+                        <div class="col-sm-5"><input class="form-control" id="yetcwork" type="text" value=""></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="background-color:DarkGray;">
+                <input class = "btn btn-primary" type="button" id="ysavework" data-dismiss="modal" value="등록하기">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+        <!-- Modal yModalinputpres  -->
+    <div class="modal fade" id="yModalinputpres" role="dialog">
+        <div class="modal-dialog"  style="width:1200px;top:300px;">
+            <div class="modal-content" style="background-color:SeaGreen;" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">예약 등록</h4>
+                </div>
+            </div>
+            <div class="modal-body"  style="width:1200px;background-color:lightblue;">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">등록일자</label>
+                        <div class="col-sm-2"><input class="form-control" id="ydatework" type="text" value=""></div>
+                        <label class="col-sm-1 control-label">시작</label>
+                        <div class="col-sm-2"><input class="form-control" id="ytimework" type="text" value=""></div>
+                        <label class="col-sm-1 control-label">고객이름</label>
+                        <div class="col-sm-2"><input class="form-control" id="yname1work" type="text" value=""></div>
+                        <label class="col-sm-1 control-label">직원이름</label>
+                        <div class="col-sm-2"><input class="form-control" id="yname2work" type="text" value=""></div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">연락처</label>
+                        <div class="col-sm-3"><input class="form-control" id="yphonepres" type="text" value=""></div>
+                        <div class="col-sm-4">
+                            <label class="radio-inline"><input type="checkbox" name="yracenpres" value="센터A">센터A</label>
+                            <label class="radio-inline"><input type="checkbox" name="yracenpres" value="센터B">센터B</label>
+                            <label class="radio-inline"><input type="checkbox" name="yracenpres" value="센터B">센터C</label>
+                        </div>
+                        <label class="col-sm-1 control-label">기타</label>
+                        <div class="col-sm-3"><input class="form-control" id="yetcpres" type="text" value=""></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="background-color:DarkGray;">
+                <input class = "btn btn-primary" type="button" id="ysavepres" data-dismiss="modal" value="등록하기">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
